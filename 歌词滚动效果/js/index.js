@@ -51,7 +51,6 @@ function processData(lyric){
     return final
 }
 var lrcData = processData(lrc) || [];
-console.log('Index',unit.curLrcIndex());
 
 var containHeight = dom.contain.clientHeight;   // 可视容器 高度
 
