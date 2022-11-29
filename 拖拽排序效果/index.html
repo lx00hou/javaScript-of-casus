@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拖拽效果</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        main{
+            margin: 100px;
+            width: 300px;
+            border: 3px solid red;
+            box-sizing: border-box;
+        }
+        div{
+            height: 30px;
+            width: 100%;
+            margin-bottom: 10px;
+            background: cadetblue;
+            border-radius: 5px;
+            line-height: 30px;
+            color: #fff;
+            padding-left: 10px;
+            box-sizing: border-box;
+        }
+        div:last-child{
+            margin-bottom: 0px;
+        }
+        .move{
+            opacity: 0.1;
+        }
+        
+    </style>
+</head>
+<body>  
+    <main class="contain">
+        <div draggable="true" class="list">1</div>
+        <div draggable="true" class="list">2</div>
+        <div draggable="true" class="list">3</div>
+        <div draggable="true" class="list">4</div>
+        <div draggable="true" class="list">5</div>
+        <div draggable="true" class="list">6</div>
+    </main>
+
+
+    <script src="./index.js"></script>
+</body>
+</html>
