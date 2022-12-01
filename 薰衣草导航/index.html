@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>薰衣草导航</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        main{
+            width: 500px;
+            margin: 300px;
+            display: flex;
+            background-color: #34495e;
+            border-radius: 6px;
+            position: relative;
+            z-index: 1;
+        }
+        p{
+            width: 100px;
+            color: white;
+            height: 50px;
+            box-sizing: border-box;
+            line-height: 50px;
+            font-size: 16px;
+            text-align: center;
+            z-index: 1;
+        }
+        main .animation{
+            position: absolute;
+            height: 50px;
+            width: 100px;
+            top: 0;
+            left: 0;
+            background-color: #1abc9c;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <p class="first">HTML</p>
+        <p class="second">CSS</p>
+        <p class="three">javaScript</p>
+        <p class="four">typeScript</p>
+        <p class="five">Node</p>
+        <div class="animation" />
+    </main>
+    <script>
+        /**
+         * 通过一个脱离文档流的元素 动态变化该元素left 实现 用户当前点击tab选中效果
+         * **/
+        let first = document.querySelector('.first');
+        let second = document.querySelector('.second');
+        let three = document.querySelector('.three');
+        let four = document.querySelector('.four');
+        let five = document.querySelector('.five');
+        let animation = document.querySelector('.animation');
+        
+        first.addEventListener('click' ,() => {
+            animation.style.left = '0';
+            animation.style.backgroundColor = '#1abc9c';
+        })
+        second.addEventListener('click' ,() => {
+            animation.style.left = '100px';
+            animation.style.backgroundColor = '#e74c3c';
+        })
+        three.addEventListener('click' ,() => {
+            animation.style.left = '200px';
+            animation.style.backgroundColor = '#3498db';
+        })
+        four.addEventListener('click' ,() => {
+            animation.style.left = '300px';
+            animation.style.backgroundColor = '#9b59b6';
+        })
+        five.addEventListener('click' ,() => {
+            animation.style.left = '400px';
+            animation.style.backgroundColor = '#e67e22';
+        })
+
+        // let main = document.querySelector('main');
+        // main.addEventListener('click',(e) => e.target)
+    </script>
+</body>
+</html>
