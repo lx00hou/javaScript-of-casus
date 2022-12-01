@@ -66,7 +66,6 @@ function createLrcItem(){
         frag.appendChild(li);
     })
     dom.Ul.appendChild(frag);
-    setUlPosition();
 }
 createLrcItem();
 
