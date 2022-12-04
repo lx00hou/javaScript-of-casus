@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小球跳动加载页面 loading 效果</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        main{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            display: flex;
+            justify-content: center;
+        }
+        div {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background:#1abc9c;
+            animation: loader 0.5s infinite alternate;
+        }
+        div:nth-child(2) {
+            margin: 0 15px;
+            animation-delay: 0.2s;
+        }
+        div:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes loader {
+            to {
+                opacity: 0.1;
+                transform: translateY(-16px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div></div>
+        <div></div>
+        <div></div>
+    </main>
+</body>
+</html>
