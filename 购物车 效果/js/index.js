@@ -73,4 +73,47 @@ class UiData{
  
 }
 
-let datas = new UiData() 
+
+class UI {
+    constructor() {
+        this.uiData = new UiData()
+        this.doms = {
+            goodsContains : document.querySelector('.goods-list')
+        }
+        this.createHtml()
+    }
+    // 根据商品数据 生成商品元素
+    createHtml(){
+        let containHtml = '';
+        this.uiData.goodsData.forEach(goods => {
+            let domHtml = `<div class="goods-item">
+                <img src=${goods.data.pic} alt="" class="goods-pic" />
+                <div class="goods-info">
+                <h2 class="goods-title">${goods.data.title}</h2>
+                <p class="goods-desc">
+                    ${goods.data.desc}
+                </p>
+                <p class="goods-sell">
+                    <span>月售 ${goods.data.sellNumber}</span>
+                    <span>好评率${goods.data.favorRate}%</span>
+                </p>
+                <div class="goods-confirm">
+                    <p class="goods-price">
+                    <span class="goods-price-unit">￥</span>
+                    <span>${goods.data.price}</span>
+                    </p>
+                    <div class="goods-btns">
+                    <i class="iconfont i-jianhao"></i>
+                    <span>${goods.choose}</span>
+                    <i class="iconfont i-jiajianzujianjiahao"></i>
+                    </div>
+                </div>
+                </div>
+            </div>`
+            containHtml += domHtml;
+        })
+        this.doms.goodsContains.innerHTML = containHtml;
+    }
+}
+
+let ui = new UI() 
