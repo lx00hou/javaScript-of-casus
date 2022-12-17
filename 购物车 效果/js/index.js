@@ -10,11 +10,11 @@ class UiGoods {
     }
     // 是否选中
     isChoose(){
-        return this.choose ? true : false
+        return this.choose > 0
     }
     // 选择数量+1
     increase(){
-        this.choose++
+        this.choose++;
     }
     // 选择数量-1
     desrease(){
@@ -69,7 +69,10 @@ class UiData{
     isCrossDeliverThreesold(){
         return this.getTotalPrice() >= this.deliverThreshold
     }
-
+    // 判断某件商品是否被选中
+    isChoose(index){
+        return this.goodsData[index].isChoose()
+    }
  
 }
 
@@ -114,6 +117,41 @@ class UI {
         })
         this.doms.goodsContains.innerHTML = containHtml;
     }
-}
+    // 根据下标 增加商品数量
+    increase(index){
+        this.uiData.increase(index);  // 根据下标更改数据
+        this.upDateGoodsItem(index)   // 根据下标更新dom
+    }
 
+     // 根据下标 减少商品数量
+    desrease(index){
+        this.uiData.desrease(index);   // 根据下标更改数据
+        this.upDateGoodsItem(index)   // 根据下标更新dom
+    }
+
+    // 更新某个商品元素状态
+    upDateGoodsItem(index){
+        /**
+         * @param  curGoodsDom 当前操作的商品元素
+         * * */
+        let curGoodsDom = this.doms.goodsContains.children[index];
+        if(this.uiData.isChoose(index)){
+            // 被选中 添加 active样式
+            curGoodsDom.classList.add('active')
+        }else {
+            // 不被选中  移除active样式
+            curGoodsDom.classList.remove('active')
+        }
+        // 更改 当前项 商品的 选中数量
+        let numSpan = curGoodsDom.querySelector('.goods-btns span');
+        numSpan.textContent = this.uiData.goodsData[index].choose
+    }
+
+
+    //  更新页脚
+    updateFooter(){
+        
+    }
+
+}
 let ui = new UI() 
