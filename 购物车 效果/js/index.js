@@ -81,14 +81,22 @@ class UI {
     constructor() {
         this.uiData = new UiData()
         this.doms = {
-            goodsContains : document.querySelector('.goods-list')
+            goodsContains : document.querySelector('.goods-list'),
+            deliveryPrice: document.querySelector('.footer-car-tip'),
+            footerPay: document.querySelector('.footer-pay'),
+            footerPayInnerSpan: document.querySelector('.footer-pay span'),
+            totalPrice: document.querySelector('.footer-car-total'),
+            car: document.querySelector('.footer-car'),
+            badge: document.querySelector('.footer-car-badge'),
         }
-        this.createHtml()
+        this.createHtml();
+        this.updateFooter();
+        this.listerEvent()
     }
     // 根据商品数据 生成商品元素
     createHtml(){
         let containHtml = '';
-        this.uiData.goodsData.forEach(goods => {
+        this.uiData.goodsData.forEach((goods,index) => {
             let domHtml = `<div class="goods-item">
                 <img src=${goods.data.pic} alt="" class="goods-pic" />
                 <div class="goods-info">
@@ -106,9 +114,9 @@ class UI {
                     <span>${goods.data.price}</span>
                     </p>
                     <div class="goods-btns">
-                    <i class="iconfont i-jianhao"></i>
+                    <i index=${index} class="iconfont i-jianhao"></i>
                     <span>${goods.choose}</span>
-                    <i class="iconfont i-jiajianzujianjiahao"></i>
+                    <i index=${index} class="iconfont i-jiajianzujianjiahao"></i>
                     </div>
                 </div>
                 </div>
@@ -117,16 +125,27 @@ class UI {
         })
         this.doms.goodsContains.innerHTML = containHtml;
     }
+
+    // 监听事件
+    listerEvent(){
+        this.doms.car.addEventListener('animationend',function(){
+            // 购物车跳跃动画 结束时 清除 animate类
+            this.classList.remove('animate')
+        })
+    }
     // 根据下标 增加商品数量
     increase(index){
         this.uiData.increase(index);  // 根据下标更改数据
         this.upDateGoodsItem(index)   // 根据下标更新dom
+        this.updateFooter();   // 更新页脚
+        this.carAnimate();
     }
 
      // 根据下标 减少商品数量
     desrease(index){
         this.uiData.desrease(index);   // 根据下标更改数据
         this.upDateGoodsItem(index)   // 根据下标更新dom
+        this.updateFooter()   // 更新页脚
     }
 
     // 更新某个商品元素状态
@@ -150,8 +169,47 @@ class UI {
 
     //  更新页脚
     updateFooter(){
-        
+          // 得到总价数据
+        let total = this.uiData.getTotalPrice();
+        // 设置配送费
+        this.doms.deliveryPrice.textContent = `配送费￥${this.uiData.deliverPrice}`;
+        // 设置起送费还差多少
+        if (this.uiData.isCrossDeliverThreesold()) {
+        // 到达起送点
+        this.doms.footerPay.classList.add('active');
+        } else {
+        this.doms.footerPay.classList.remove('active');
+        // 更新还差多少钱
+        let dis = this.uiData.deliverThreshold - total;
+        dis = Math.round(dis);
+        this.doms.footerPayInnerSpan.textContent = `还差￥${dis}元起送`;
+        }
+        // 设置总价
+        this.doms.totalPrice.textContent = total.toFixed(2);
+        // 设置购物车的样式状态
+        if (this.uiData.hasGoodsInCar()) {
+        this.doms.car.classList.add('active');
+        } else {
+        this.doms.car.classList.remove('active');
+        }
+        // 设置购物车中的数量
+        this.doms.badge.textContent = this.uiData.getTotalChooseNum();
+    }
+
+    // 每次添加商品 触发购物车动画
+    carAnimate(){
+        this.doms.car.classList.add('animate')
     }
 
 }
-let ui = new UI() 
+let ui = new UI();
+
+ui.doms.goodsContains.addEventListener('click',e => {
+    if([...e.target.classList].includes('i-jiajianzujianjiahao')){
+        let index = +e.target.getAttribute('index');
+        ui.increase(index)
+    }else if([...e.target.classList].includes('i-jianhao')){
+        let index = +e.target.getAttribute('index');
+        ui.desrease(index)
+    }
+})
