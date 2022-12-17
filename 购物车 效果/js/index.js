@@ -60,6 +60,16 @@ class UiData{
         this.goodsData[index].desrease()
     }
 
+    // 购物车中 是否存在商品 (是否有商品 ui界面不同)
+    hasGoodsInCar(){
+        return this.getTotalChooseNum() > 0
+    }
+
+    // 判断 是否超过了 起送金额 , 是否可以起送
+    isCrossDeliverThreesold(){
+        return this.getTotalPrice() >= this.deliverThreshold
+    }
+
  
 }
 
