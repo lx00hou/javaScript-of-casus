@@ -3,6 +3,7 @@ var user = {
   birth: '2002-5-7',
 };
 
+observer(user);   // 观察 user对象的所有属性
 
 // 显示姓氏
 function showFirstName() {
@@ -30,6 +31,7 @@ function showAge() {
   }
   document.querySelector('#age').textContent = '年龄：' + age;
 }
-showFirstName();
-showLastName();
-showAge();
+
+autoRun(showFirstName);
+autoRun(showLastName);
+autoRun(showAge);
