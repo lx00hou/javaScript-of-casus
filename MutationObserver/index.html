@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MutationObserver</title>
+    <style>
+        main{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            text-align: center;
+            line-height: 200px;
+        }
+        .changeColor {
+            background-color: beige !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        MutationObserver : 监听节点 , DOM 变化
+        https://blog.csdn.net/weixin_45412353/article/details/107176246
+        https://segmentfault.com/a/1190000012787829
+
+         监听设置
+        childList：子节点的变动（指新增，删除或者更改）。
+        attributes：属性的变动。
+        characterData：节点内容或节点文本的变动。
+        subtree：布尔值，表示是否将该观察器应用于该节点的所有后代节点。
+        attributeOldValue：布尔值，表示观察attributes变动时，是否需要记录变动前的属性值。
+        characterDataOldValue：布尔值，表示观察characterData变动时，是否需要记录变动前的值。
+        attributeFilter：数组，表示需要观察的特定属性（比如['style','class','src']）
+     -->
+     <main>
+        main
+     </main>
+     <script>
+        let main = document.querySelector('main');
+
+        const obsOfmainEle = new MutationObserver(e => {
+            // 异步执行 微队列
+            console.log('DOM元素发生了变化',e[0]);
+            console.log('main',e[0].target);
+        })
+        obsOfmainEle.observe(main,{
+            attributeFilter:['style']
+        });
+        function changMain(){
+            if(main.style.display === 'none'){
+                main.style.display = 'block';
+            }else {
+                main.style.display = 'none';
+            }
+        }
+        setInterval(() => {
+            changMain()
+            // main.classList.add('changeColor') attributeFilter ['class']  触发
+        },1000)
+
+
+     </script>
+</body>
+</html>
