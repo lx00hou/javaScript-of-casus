@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css 滚动捕捉</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .first {
+            margin: 50px;
+            width: 300px;
+            height: 300px;
+            border: 3px solid black;
+            /**
+                mandatory:强制吸附
+                proximity : 接近吸附
+            */
+            scroll-snap-type: y proximity;   
+            overflow-y: scroll;
+            box-sizing: border-box;
+          
+        } 
+        .first::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+        .first div{
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            line-height: 300px;
+            flex-shrink: 0;
+            color: white;
+            /**
+                start:容器顶部和元素顶部对齐
+                end:容器底部和元素底部对齐
+            **/
+            scroll-snap-align: start;
+            /* scroll-snap-stop: always; */
+        }
+        .first div:first-child{
+            background: red;
+        }
+        .first div:nth-child(2){
+            background: pink;
+        }
+        .first div:nth-child(3){
+            background: green;
+        }
+        .first div:nth-child(4){
+            background: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+    <section class="first">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+    </section>
+
+    <!-- <section class="second">
+
+    </section> -->
+</body>
+</html>
