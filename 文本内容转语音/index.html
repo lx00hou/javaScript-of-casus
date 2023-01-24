@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>将用户输入的内容转为语音</title>
+</head>
+<body>
+    <input type="text" id="input" /> <span class="cliSpan">点我试试看</span>
+    <script>
+        let input = document.getElementById('input');
+        let cliSpan = document.querySelector('.cliSpan');
+        cliSpan.addEventListener('click',() => {
+            console.log('input',input.value);
+            let msg = new SpeechSynthesisUtterance(input.value);
+            msg.volume = 2 // 音量
+            msg.lang='zh'    // 语言
+            msg.rate = 0.8 // 倍速
+            window.speechSynthesis.speak(msg);
+        })
+    </script>
+</body>
+</html>
