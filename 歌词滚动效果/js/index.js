@@ -59,7 +59,7 @@ function createLrcItem(){
     /**
      * 循环数据 渲染 li 标签
      */
-    let frag = document.createDocumentFragment();
+    let frag = document.createDocumentFragment();    // 文档碎片化 , 减少页面回流 优化性能
     lrcData.forEach(lrc => {
         let li = document.createElement('li');
         li.textContent = lrc.words;
