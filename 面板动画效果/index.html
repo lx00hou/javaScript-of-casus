@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滑块动画效果</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        main {
+            margin: 100px;
+        }
+        section {
+            width: 200px;
+            height: 130px;
+            display: flex;
+            flex-direction: column;
+            overflow:hidden;
+        }
+        section:first-child{
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        div {
+            overflow:hidden;
+        }
+        .title {
+            padding: 5px;
+            box-sizing: border-box;
+            font-weight: bold;
+            height: 20%;
+            background-color: aqua;
+            display: flex;
+            align-items: center;
+        }
+        .desc {
+            height: 80%;
+            color: aliceblue;
+            background-color: brown;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section>
+            <div class="title">html5</div>
+            <div class="desc"> draggable main section canvas canvas audio localStorage </div>
+        </section>
+    </main>
+    <script>
+        class Animation {
+            constructor(el){
+                this.el = el;
+                this.isShow = true;
+                this.defaultHeight = this.height;
+            }
+            get height(){
+                return window.getComputedStyle(this.el).height.slice(0,-2) * 1
+            }
+            set height(height){
+                this.el.style.height = height + 'px'
+            }
+            hide(callBack){
+                this.isShow = false;
+                let dom = setInterval(() => {
+                    this.height = this.height -1
+                    if(this.height <= 0) {
+                        console.log('隐藏');
+                        clearInterval(dom);
+                        callBack && callBack()
+                    }
+                },50)
+            }
+            show(){
+                this.isShow = true;
+                let dom = setInterval(() => {
+                    this.height = this.height + 1;
+                    if(this.height >= this.defaultHeight) {
+                        clearInterval(dom)
+                        console.log('显示');
+                    }
+                },50)
+            }
+
+        }
+        let el = document.querySelector('.desc');
+        let dom = new Animation(el)
+        dom.hide(() => {
+            dom.show()
+        });
+
+    </script>
+</body>
+</html>
