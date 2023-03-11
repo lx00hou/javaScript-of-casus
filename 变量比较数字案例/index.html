@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <script>
+        /**
+         * 对象转数字  == 会转换数据类型  经历详细步骤 valueOf => toString
+        */
+        let a  = [1,2,3];
+        a.toString = a.shift;
+        console.log('a',a); 
+        if(a == 1 && a == 2 && a == 3 ){
+            console.log('A --> OK');
+        }
+
+        // 数据劫持
+        var i = 0;
+        Object.defineProperty(window,'b',{
+            get(){
+                console.log('get',i);
+                return ++i;
+            }
+        })
+
+        if(b === 1 && b === 2 && b === 3){
+            console.log('B --> OK');
+        }
+    </script>
+</body>
+</html>
