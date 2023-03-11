@@ -30,6 +30,16 @@
         if(b === 1 && b === 2 && b === 3){
             console.log('B --> OK');
         }
+
+
+        let aa = {n:1};
+        let bb = aa ;
+        let cc = Object.assign({},aa) ;
+        aa.x = {n:2};
+        console.log('aa.x',aa);
+        console.log('bb',bb);
+        console.log('cc',cc);
+        
     </script>
 </body>
 </html>
