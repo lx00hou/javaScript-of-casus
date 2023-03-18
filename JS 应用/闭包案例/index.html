@@ -10,7 +10,7 @@
     <script>
         const fn = (function(id){
             let cache = {};
-            return () => {
+            const temporary= () => {
                 if(cache[id]){
                     console.log('走缓存了');
                     return cache[id]
@@ -20,6 +20,7 @@
                     return '123'
                 }
             }
+            return temporary
         })()
         fn(2)
         fn(2)

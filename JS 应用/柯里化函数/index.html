@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>柯里化函数</title>
+</head>
+<body>
+    <script>
+        /*
+            柯里化函数 是一种 "预先存储"的思想,也是闭包进阶应用.函数执行 产生闭包,将后续用到的值存储到闭包的某个私有变量
+            那么其上下文中想用的时候直接拿来用
+        */
+        const curring = function curring(){
+            /**
+             * curring 函数执行 内部函数(add) 被返回后, 被外部变量占用(add函数 被外部变量占用),
+             * 所以 add函数 堆内存不能被释放 add作用域(所在上下文 curring) 也不能被释放 产生闭包
+             * */ 
+            let cacheParams = [];   // 将每次add 的参数值 存储到 闭包的 cacheParams 中 
+            const add = function (...args){
+                cacheParams = [...cacheParams,...args]
+                return add
+            }
+            // 对象转换为数字 重写valueOf(toString也可以) , 对 cacheParams 求和
+            add.valueOf = () => {
+                return cacheParams.reduce((total,item) => {
+                    return total + item
+                },0)
+            } 
+            
+            return add
+        }
+
+
+        let add = curring();
+        let res = add(1)(2)(3);    
+        console.log(+res);     // -> 6
+
+        add = curring();
+        res = add(1,2,3)(4);
+        console.log(+res);    // -> 10
+
+        add = curring();
+        res = add(1)(2)(3)(4)(5);
+        console.log(+res);    // -> 15
+
+    </script>
+</body>
+</html>

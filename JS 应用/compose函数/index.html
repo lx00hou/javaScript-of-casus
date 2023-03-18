@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>compose(组合)函数</title>
+</head>
+<body>
+    <script>
+      /**
+       * const add1 = x => x +1;
+       * const mul3 = x => x * 3;
+       * const div2 = x => x / 2
+       * div(mul3(add1(add1(0))))    => 3
+       * 将上一个函数执行的结果,作为下一个函数执行的实参值
+       * 缺点 可读性差 不易维护扩展
+       * 
+       * 实现一个 compose(组合) 函数 它接收多个函数作为参数 (这些函数都只接收一个参数) 
+       * const operate =  compose(div2,muld3,add1,add1);
+       * operate(0)  相当于 div2)(muld3(add1(add1(0))))
+       * operate(2)  相当于 div2)(muld3(add1(add1(2))))
+       * */  
+       const add1 = x => x +1;
+       const mul3 = x => x * 3;
+       const div2 = x => x / 2;
+
+        const compose = function(...func){
+            // 形成闭包 func = [div2,mul3,add1,add1]
+            if(!func.length) {   // 没有任何函数
+                return x => x
+            }
+            const operate =  function operate(num){
+                // reduceRight 从右向左 迭代
+                return func.reduceRight((total,nextFunc) => {
+                    /**
+                     *  第一次执行 total 值为 num,之后将值作为参数 传递到 add1,得到处理结果
+                     * 将返回的结果(total) 再次作为实参 传递到 add1 ,得到返回值
+                     * 将返回的结果(total) 再次作为实参 传递到 mul3, 依次迭代执行 
+                     * 
+                    */
+                    return nextFunc(total)
+                },num)
+            }
+            return operate
+             
+        }
+
+        const operate = compose(div2,mul3,add1,add1)
+        console.log('operate',operate(0));
+
+    </script>
+</body>
+</html>
