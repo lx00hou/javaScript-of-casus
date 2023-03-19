@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>变量提升</title>
+</head>
+<body>
+    <script>
+        var a = 0;
+        function fun(a){
+            /**
+             * 变量提升阶段
+             * var a   // 无需声明,因为已经有实参a了
+             * function a(){}   // 无需声明,但是需要定义 a
+             * 此时代码还未执行, 变量提升阶段 a 被定义为 函数
+            */
+            console.log(a);   // log --> ƒ a(){}
+            var a = 2;    // 重新赋值 a
+            function a(){}  // 变量提升阶段已经声明过了
+            console.log(a);   // log -->  2
+        }
+        fun(a)
+        console.log(a);   // log --> 不受 fun 内部私有变量影响
+    </script>
+</body>
+</html>
