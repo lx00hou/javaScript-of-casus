@@ -35,7 +35,7 @@
 
         let add = curring();
         let res = add(1)(2)(3);    
-        console.log(+res);     // -> 6
+        console.log(+res);     // -> 6   对象转换数字 重写valueOf 或 toString
 
         add = curring();
         res = add(1,2,3)(4);

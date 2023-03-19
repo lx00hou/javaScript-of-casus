@@ -5,8 +5,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        main {
+            margin: 100px;
+        }
+    </style>
 </head>
 <body>
-    
+    <main>
+        <div id="name" style='margin-bottom:30px'></div>
+        <!-- 
+            输入框的值 赋值给 div
+            当 input 值发生变化时 赋值给 user.name, 数据发生了改变,但是 div 页面数据不会变化
+            需要 手动调用 setName 页面才会发生变化 
+            解决: 通过 Object.defineProperty() 数据劫持,收集依赖函数  再派发更新
+         -->
+        <input type="text" oninput="user.name = this.value" />   
+    </main>
+    <script>
+        let user = {
+            name:"张三"
+        }
+        observe(user)   // 观察 user 对象 
+        function setName(){
+            let nameDiv = document.querySelector('#name');
+            nameDiv.textContent = user.name
+        }
+        collect(setName)   // setName 不要直接执行 (直接执行 get 无法拿到依赖函数)
+        function collect(fnc){
+            window._func = fnc;
+            fnc()   // 此函数执行 用到了 user.name 属性 此时  defineProperty 中的 get 拿到了 当前函数
+            window._func = null;
+        }
+
+        function observe(obj){
+            for (const itemKey in obj) {
+                let value = obj[itemKey];
+                let funcGather = new Set();
+                Object.defineProperty(obj,itemKey,{
+                    get:() =>{   // 收集依赖
+                        // 某个函数 用到了 这个属性 将这个函数 保存到 funcGather 
+                        window._func &&  funcGather.add(window._func)
+                        return value
+                    },  
+                    set:(val) => {  // 派发更新
+                       value = val;
+                       //  将收集到的 函数依次执行
+                       for (const iterator of [...funcGather]) {
+                            iterator();
+                        }
+                    }   
+                })
+            }   
+        }
+     
+
+
+    </script>
+
 </body>
 </html>

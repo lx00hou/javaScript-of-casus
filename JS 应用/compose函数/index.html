@@ -30,7 +30,11 @@
             if(!func.length) {   // 没有任何函数
                 return x => x
             }
-            const operate =  function operate(num){
+            if(func.length) {   // 只有一个函数 直接将唯一函数 返回
+                return func[0]    
+            }
+            
+            const operate = function operate(num){
                 // reduceRight 从右向左 迭代
                 return func.reduceRight((total,nextFunc) => {
                     /**
