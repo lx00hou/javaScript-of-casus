@@ -18,10 +18,11 @@
         */
         let btn = document.querySelector('#btn');
         const sendServer = function (e) {
-            console.log('请求服务器',e.target);
+            console.log('请求服务器',e);
         }
-
+        
         btn.onclick = utils.debounce(sendServer,500)
+ 
    
     </script>
 </body>

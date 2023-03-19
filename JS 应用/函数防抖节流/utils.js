@@ -1,4 +1,4 @@
-(function(){
+// (function(){
     const debounce = function debounce(func,wait) {
         /**
          * func 回调函数
@@ -30,6 +30,6 @@
     }
 
     // 导出 api
-    if(typeof window !== 'undefined') window.utils = window._ = utils;
-    if(typeof module === 'object' && typeof module.expors === 'object' ) module.expors = utils 
-})()
+    // if(typeof window !== 'undefined') window.utils = window._ = utils;
+    // if(typeof module === 'object' && typeof module.expors === 'object' ) module.expors = utils 
+// })()
