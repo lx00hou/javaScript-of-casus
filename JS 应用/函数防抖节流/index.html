@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖节流</title>
+</head>
+<body>
+    <button id="btn">点击发送请求</button>
+
+    <script src="./utils.js"></script>
+    <script>
+        /**
+         * 函数防抖:用户频繁触发某个行为,只识别一次
+         * 函数节流:用户频繁操作的时候,不跟据用户的频繁操作决定, 而是根据设定好的频率触发,实现 "降频"(不代表只识别一次)
+         * 节流相对于防抖来说,节流允许触发多次  
+        */
+        let btn = document.querySelector('#btn');
+        const sendServer = function (e) {
+            console.log('请求服务器',e.target);
+        }
+
+        btn.onclick = utils.debounce(sendServer,500)
+   
+    </script>
+</body>
+</html>

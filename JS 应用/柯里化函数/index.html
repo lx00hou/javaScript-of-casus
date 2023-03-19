@@ -15,7 +15,7 @@
         const curring = function curring(){
             /**
              * curring 函数执行 内部函数(add) 被返回后, 被外部变量占用(add函数 被外部变量占用),
-             * 所以 add函数 堆内存不能被释放 add作用域(所在上下文 curring) 也不能被释放 产生闭包
+             * 所以 add函数 堆内存不能被释放 add作用域(上级上下文 curring) 也不能被释放 产生闭包
              * */ 
             let cacheParams = [];   // 将每次add 的参数值 存储到 闭包的 cacheParams 中 
             const add = function (...args){
