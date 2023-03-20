@@ -9,7 +9,7 @@
 <body>
     <script>
         /**
-         * 对象转数字  == 会转换数据类型  经历详细步骤 valueOf  toString
+         * 对象转数字   会转换数据类型  经历详细步骤 valueOf  toString
         */
         let a  = [1,2,3];
         a.toString = a.shift;
@@ -32,14 +32,6 @@
         }
 
 
-        let aa = {n:1};
-        let bb = aa ;
-        let cc = Object.assign({},aa) ;
-        aa.x = {n:2};
-        console.log('aa.x',aa);
-        console.log('bb',bb);
-        console.log('cc',cc);
-        
         
     </script>
 </body>

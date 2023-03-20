@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>instanceof</title>
+</head>
+<body>
+    <!--
+        instanceof:检测当前实例是否属于某个类,变相解决了 typeof 不足(检测对象不准确)
+        检测机制:当前类出现在实例的原型链上,结果都是true
+        类型检测弊端:可以修改原型指向,所以检测结果不准确
+                    致命问题 无法检测基本数据类型
+     -->
+    <script>
+
+        let arr = [];
+        console.log('arr',arr);  
+        console.log('检测数组',arr instanceof Array);  // true
+        console.log('检测数组',arr instanceof RegExp);  // false
+        console.log('检测数组',arr instanceof Object);  // true  打印发现 arr 原型链上 出现了 Object
+
+        console.log(1 instanceof Number);   // false 
+
+    </script>
+</body>
+</html>
