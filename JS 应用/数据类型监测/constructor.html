@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>consturctor</title>
+</head>
+<body>
+    <script>
+        /**
+         * constructor 指向创建当前实例对象的构造函数
+         * 弊端 constructor 可以随意更改 不准确  xxx.prototype.constructor = 'xxx'
+        */
+        let arr = [];
+        console.log(arr.constructor === Array);   // trur
+        console.log(arr.constructor === Object);   // false
+
+        let b = 1;
+        console.log(b.constructor === Number);   // true
+    </script>
+</body>
+</html>
