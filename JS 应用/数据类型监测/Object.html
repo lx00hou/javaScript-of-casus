@@ -11,5 +11,25 @@
         Object.prototype.toString.call([value])
         标准检测数据类型方法 Object.prototype.toString 不是返回字符串 时返回当前实例所属类的信息
      -->
+    <script>
+        let test = {
+            name:"又在熬夜吗?"
+        }
+        console.log(test.toString());
+        /**
+         * test.toString()   // ==> "[Object,Object]"
+         * toString()  执行，this是obj , 所以是检测obj的所属类信息
+         * 推测：执行 Object.prototype.toString, this 变为要检测的值，就可以返回 当前值所处类的信息
+        */
+        console.log(Object.prototype.toString.call(1));
+        console.log(Object.prototype.toString.call([]));
+        console.log(Object.prototype.toString.call({}));
+        console.log(Object.prototype.toString.call(function(){}));
+        console.log(Object.prototype.toString.call(undefined));
+        console.log(Object.prototype.toString.call(null));
+        console.log(Object.prototype.toString.call(NaN));
+        console.log(Object.prototype.toString.call(new Date()));
+
+    </script>     
 </body>
 </html>

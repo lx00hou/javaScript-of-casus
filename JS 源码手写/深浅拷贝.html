@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深浅拷贝</title>
+</head>
+<body>
+    <script>
+    /**
+     * 深拷贝 浅拷贝 , 拷贝前后两个变量的 堆内存 一定是不等的
+     * **/
+
+    //  数组浅拷贝 (只能拷贝一级)
+        let a = [99,88,77,[66,55,44,[33,22,11]]];
+        let newA = [...a]   
+        let newAA =  a.concat([])
+        let newAAA = a.slice();
+        let newAAAA = a.map(item => item);
+        // newAAAA[3] === a[3] true 数组中的数组 无法被拷贝
+
+
+
+        
+    //  对象浅拷贝 (只能拷贝一级)
+        let obj = { 
+            name:"前端已死",
+            address:'中国',
+            way:{
+                trade:'搬砖',
+                continue:"往死里卷" 
+            }
+         }
+        let newObj = { ...obj };
+        let newObjj = Object.assign({},obj)
+        console.log('',newObjj === obj);
+
+    </script>
+</body>
+</html>
