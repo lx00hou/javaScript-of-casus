@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单例模式</title>
+</head>
+<body>
+    <!-- 
+        单例设计模式 : 基于单独的实例 管理某个模块中内容,实现模块之间的独立划分
+                      彼此之间不冲突,但是模块之间可以相互调用
+                      当前ES6 已经实现了 Module  (导入导出)
+     -->
+    <script>
+        let moduleA = (() => {
+            let data = [];
+             function bindHtml(){
+             }
+
+             function change(){
+             }
+
+            return{
+                change
+            }              
+        })()
+
+        let moduleB = (() => {
+            let data = [];
+            function bindHtml(){
+
+            }
+
+            moduleA.change();  // 实现模块之间的调用
+
+        })()
+
+
+        let searchModule = (function(){
+            let body = document.body;
+             
+            function queryData(){
+                console.log('先执行queryData');
+            }
+            function handle(){
+                console.log('在执行handle');
+            }
+            return {
+                init:function(){
+                    queryData()
+                    handle()
+                }
+            }
+        })()
+        searchModule.init()
+
+
+    </script>
+</body>
+</html>

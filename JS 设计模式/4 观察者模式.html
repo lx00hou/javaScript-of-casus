@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>观察者模式</title>
+</head>
+<body>
+    <!--
+        观察者模式(Observer)
+        每个观察者 都应该具备 update 方法,消息到达时,进行相关处理
+        目标: 管理观察者[增删改查],以及推送消息的能力
+      -->
+    <script>
+        class Demo {   // 观察者
+            update(mes){
+                // 消息送达 通知 update 执行
+                console.log('收到消息了',mes); 
+            }
+        }
+        class Demos {    // 观察者
+            update(mes){
+                // 消息送达 通知 update 执行
+                console.log('收到消息了',mes); 
+            }
+        }
+        
+        class Sublist {  //管理观察者
+            constructor(){
+                this.observerList = []
+            }
+            add(obsedver){
+                this.observerList.push(obsedver)
+                this.observerList = [...new Set(this.observerList)]   // 去重
+            }
+            remove(observer){
+                this.observerList.filter(item => observer !== item)
+            }
+            notify(...params){
+                // 触发每一个观察者 update()
+                for (const itemServer of this.observerList) {
+                    itemServer.update(...params)
+                }
+            }
+        }
+
+        let sub = new Sublist;  
+        sub.add(new Demo);   // 添加观察者
+        sub.add(new Demos);   // 添加观察者
+        // Sublist 观察者列表中 管理了 两个观察者
+        sub.notify('消息来了 !!!')   // 发布消息
+
+    </script>
+</body>
+</html>

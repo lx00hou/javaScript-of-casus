@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>构造函数模式</title>
+</head>
+<body>
+    <!-- 
+        构造函数模式 相对于单例模式 的好处:每个实例都是单独的空间 互相独立,拥有的属性都是私有,也有公共的方法
+     -->
+    <script>
+        class Amodule {
+            constructor(){
+                // this --> 每个类的实例
+                this.arr = []
+            }
+            //  原型上的 公共方法
+            change(val){
+                this.arr.push(val);
+                console.log('arr',this.arr);
+            }
+        }
+
+        let aModule = new Amodule;
+        let bModule = new Amodule;
+        console.log(aModule.arr === bModule.arr);   //false  arr私有
+        console.log(aModule.change === bModule.change);   //true  公共方法(所属类的原型)
+
+    </script>
+</body>
+</html>
