@@ -9,7 +9,7 @@ class Promise{
         this.reason = undefined;  // 失败的原因
         /**
          * 异步调用
-         * 只有当resolve 或者 reject 被异步执行时 then方法时,
+         * 只有当resolve 或者 reject 被异步执行时 then方法时
          * status 是pending 状态, 需要订阅 发布
          * onResolvedCb: 成功的 回调数组
          * onRejectedCb: 失败的 回调数组
