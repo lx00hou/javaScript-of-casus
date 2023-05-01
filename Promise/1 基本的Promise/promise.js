@@ -9,7 +9,7 @@ class Promise{
         this.reason = undefined;  // 失败的原因
         /**
          * 异步调用
-         * 只有当resolve 或者 reject 被异步执行时 then方法时,
+         * 只有当resolve 或者 reject 被异步执行 then方法时,
          * status 是pending 状态, 需要订阅 发布
          * onResolvedCb: 成功的 回调数组
          * onRejectedCb: 失败的 回调数组
@@ -59,11 +59,11 @@ class Promise{
             onrejected(this.reason)
         }
         // 异步调用 此时状态时 'PENDING'  需要借助发布订阅
-        if(this.status === PENDING){   // 订阅
-            this.onResolvedCb.push(() => {    
+        if(this.status === PENDING){   
+            this.onResolvedCb.push(() => {   // 订阅
                 onfulfilled(this.value)
             });
-            this.onRejectedCb.push(() => {
+            this.onRejectedCb.push(() => {   // 订阅
                 onrejected(this.reason)
             })
         }

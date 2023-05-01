@@ -5,12 +5,12 @@
  */
 
 
-// let Promise = require('./promise');
+let Promise = require('./promise');
 let p = new Promise((resolve,reject) => {
-    resolve()
-})
-p.then(data => {
-    return 100
+    resolve(100);
+}).then(data => {
+    throw new Error('错了')
 }).then(e => {
-    console.log('e',e);
+},err => {
+    console.log(err);
 })
