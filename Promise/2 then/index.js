@@ -5,12 +5,16 @@
  */
 
 
-let Promise = require('./promise');
+// let Promise = require('./promise');
 let p = new Promise((resolve,reject) => {
     resolve(100);
-}).then(data => {
-    throw new Error('错了')
-}).then(e => {
-},err => {
-    console.log(err);
 })
+// let pro = p.then(data => {
+//     return pro 
+// })
+// pro.then(res => {
+// },(err) => {
+//     console.log('err',err);
+// })
+
+
