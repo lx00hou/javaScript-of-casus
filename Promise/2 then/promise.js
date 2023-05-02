@@ -17,7 +17,7 @@ function resolvePromise(promise2,x,resolve,reject) {
          */
         return reject(new TypeError('死循环了!!!'))
     }
-    if(typeof x === 'object' && typeof x !== null || typeof x === 'function'){
+    if((typeof x === 'object' && x !== null) || typeof x === 'function'){
         /**
          * 对象 或者是 函数
          * 取then(返回结果) 报错 直接返回 失败的Promise
@@ -27,7 +27,14 @@ function resolvePromise(promise2,x,resolve,reject) {
             if(typeof then === 'function'){
                 /**
                  * 有then 方法就认为 当前是个Promise
+                 * 不用x.then 原因:不必再次取then的值
+                 *  x.then(y =>{},r => {})
                  */
+                then.call(x,y => {
+                    resolve(y);   // 拿到 promise成功结果 向下传递  
+                },r => {
+                    reject(r)   // 拿到 promise失败原因 向下传递
+                });
             }else {
                 /**
                  * {then:123}
@@ -94,7 +101,12 @@ class Promise{
     }
     // 原型then方法 
     then(onfulfilled,onrejected){
+        onfulfilled = typeof onfulfilled === 'function' ? onfulfilled : val => val; 
+        onrejected = typeof onrejected === 'function' ? onrejected : err => {
+            throw err
+        } 
         /**
+         * onfulfilled,onrejected 是可选参数
          * 为了实现then的 连续调用
          *  需要递归调用自身 并返回一个新的 Promise
          */
