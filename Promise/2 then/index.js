@@ -9,6 +9,16 @@
 let p = new Promise((resolve,reject) => {
     resolve(100);
 })
+p.then(() => {
+    return new Promise((resolve,reject) => {
+        reject(100)
+    })
+}).then((data) => {
+    console.log('data',data);
+},err => {
+    console.log('err',err);
+})
+
 // let pro = p.then(data => {
 //     return pro 
 // })
