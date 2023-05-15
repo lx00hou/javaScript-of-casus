@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无缝轮播</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        main{
+            margin: 100px auto 0;
+            width: 1050px;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+        main .img-list {
+            display: flex;
+            position: relative;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: 0.5s ease;
+        }
+        main .img-list img{
+            width: 100%;
+        }   
+        main .arrow {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+        }
+        main .arrow div{
+            padding: 20px;
+            box-sizing: border-box;
+            background: #ffffff;
+        }
+        main .arrow div:hover {
+            background: grey;
+        }
+        ul {
+            position: absolute;
+            left: 50%;
+            bottom: 5%;
+            transform: translateX(-50%);
+            list-style-type:none;
+            display: flex;
+        } 
+        ul li{
+            margin-right: 10px;
+            width: 15px;
+            height: 15px;
+            background: #fff;
+            border-radius: 50%;
+        }
+        ul li:last-child {
+            margin-right: 0;
+        }
+        ul .active{
+            background: blueviolet;
+        }
+      
+    </style>
+</head>
+<body>
+    <main id="warp">
+        <div class="img-list">
+            <img src="../image/10e3c075078d14e484419332aa7092b9.jpeg">
+            <img src="../image/b8bd1d8b7bddd79991509843900c316c.jpeg">
+        </div>
+        <section class="arrow">
+            <div class="arrow-left">⬅</div>
+            <div class="arrow-right">➡</div>
+        </section>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </main>
+    <script>
+
+    </script>
+</body>
+</html>
