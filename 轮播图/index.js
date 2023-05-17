@@ -14,7 +14,19 @@ class Swiper {
         arrowRight.addEventListener('click',this.arrRightClick.bind(this));
     }
     arrLeftClick(e){   // 左侧箭头点击事件
-        this.imgList.style.left = `${--this.index * -distance}px`;
+        this.index--;
+        if(this.index == -1){
+            let imgLength = this.imgList.children.length - 1;
+            this.imgList.style.left = `${imgLength * -distance}px`;
+            this.imgList.style.transition = 'none';
+            setTimeout(() => {
+                this.index = imgLength - 1; 
+                this.imgList.style.left = `${this.index * -distance}px`;
+                this.imgList.style.transition = '0.5s ease';
+            }, 0);
+        } else {
+            this.imgList.style.left = `${this.index * -distance}px`;
+        }
     }
     arrRightClick(e){   // 右侧箭头点击事件
         this.index++;
