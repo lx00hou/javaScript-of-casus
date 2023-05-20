@@ -1,12 +1,17 @@
 const distance = 1050;
 class Swiper {
     constructor(){
+        this.autoPlayInterval = null;
+        this.lock = true;   // 节流锁
         this.imgList = document.querySelector('.img-list');
         this.circleAll = document.querySelectorAll('.circle');
+        this.warp = document.getElementById('warp'); 
         this.index = 0;  // 图片索引 代表第几张图片
         let cloneFirstImg = this.imgList.firstElementChild.cloneNode();   // 克隆imgList的第一张图片
         this.imgList.appendChild(cloneFirstImg);  // 将第一张图片克隆 并放到list最后的位置
         this.initBingDom();   // 绑定元素点击事件
+        this.autoPlay();   // 自动轮播
+        this.mouseEvent();   // 鼠标移入移出事件
     }
     initBingDom(){
         let arrowLeft = document.querySelector('.arrow-left');
@@ -22,6 +27,7 @@ class Swiper {
         this.bingClassOfCircle();
     }
     arrLeftClick(){   // 左侧箭头点击事件
+        if(!this.lock) return 
         this.index--;
         if(this.index == -1){
             let imgLength = this.imgList.children.length - 1;
@@ -36,8 +42,13 @@ class Swiper {
             this.imgList.style.left = `${this.index * -distance}px`;
         }
         this.bingClassOfCircle();
+        this.lock = false;
+        setTimeout(() => {
+            this.lock = true
+        },500)
     }
     arrRightClick(){   // 右侧箭头点击事件
+        if(!this.lock) return 
         this.index++;
         this.imgList.style.left = `${this.index * -distance}px`;
         if(this.index == this.imgList.children.length-1){
@@ -49,14 +60,23 @@ class Swiper {
             },500) // 和过渡动画 时长必须保持一致,(必须关闭过渡动画)
         }else this.imgList.style.transition = '0.5s ease';
         this.bingClassOfCircle();
+        this.lock = false;
+        setTimeout(() => {
+            this.lock = true
+        },500)
     }
    
     ulTargetClick(e){
         if(e.target.nodeName.toLowerCase() === 'li'){   // 点击原点
+            if(!this.lock) return 
             let circleIndex = Number(e.target.dataset.ids);
             this.index = circleIndex;
             this.bingClassOfCircle();
             this.imgList.style.left = `${this.index * -distance}px`;
+            this.lock = false;
+            setTimeout(() => {
+                this.lock = true
+            },500)
 
         }
     }
@@ -66,7 +86,18 @@ class Swiper {
             this.index !== i && this.circleAll[i].classList.remove('active');
         }
     }
-   
+    autoPlay(){
+        this.autoPlayInterval = setInterval(this.arrRightClick.bind(this),2000)
+    }
+    mouseEvent(){
+        this.warp.onmouseenter = () => {   // 鼠标移入 停止轮播
+            clearInterval(this.autoPlayInterval);
+        }
+        this.warp.onmouseleave = () =>{   // 鼠标移出 重新开始轮播
+            clearInterval(this.autoPlayInterval)
+            this.autoPlay()
+        }
 
+    }
 
 }
